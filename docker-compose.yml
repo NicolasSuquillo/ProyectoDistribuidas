@@ -1,0 +1,72 @@
+services:
+  cursos-app:
+    build:
+        context: ./app/msvc-cursos
+        dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://cursos-db:5432/appdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    networks:
+      - appRed
+    depends_on:
+      - cursos-db
+
+  usuarios-app:
+    build:
+        context: ./app/msvc-usuarios
+        dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://usuarios-db:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    networks:
+      - appRed
+    depends_on:
+      - usuarios-db
+
+  usuarios-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: appdb
+    ports:
+      - "3306:3306"
+    networks:
+      - appRed
+
+  cursos-db:
+    image: postgres:latest
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: appdb
+    ports:
+        - "5432:5432"
+    networks:
+        - appRed
+  
+  front:
+    build:
+      context: ./front 2 
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - appRed
+    depends_on:
+      - cursos-app
+      - usuarios-app
+
+networks:
+  appRed:
+    driver: bridge
