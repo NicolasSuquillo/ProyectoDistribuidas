@@ -1,0 +1,43 @@
+/* Estilos para el contenedor de botones */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 20px; /* Espacio entre los botones */
+    margin-bottom: 20px; /* Espacio debajo del contenedor de botones */
+  }
+  
+  /* Estilos para los elementos de navegación */
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Estilos para el icono en el botón */
+  .nav-image {
+    width: 80px; /* Ancho del icono */
+    height: 80px; /* Alto del icono */
+    margin-bottom: 10px; /* Espacio entre el icono y el texto */
+  }
+  
+  /* Estilos para los botones */
+  .nav-button {
+    background-color: #007bff; /* Color de fondo azul */
+    color: #fff; /* Color del texto blanco */
+    border: none; /* Elimina el borde predeterminado */
+    padding: 15px 25px; /* Espaciado interno del botón */
+    font-size: 20px; /* Tamaño del texto */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+  }
+  
+  /* Estilos para el botón al pasar el cursor sobre él */
+  .nav-button:hover {
+    background-color: #0056b3; /* Color de fondo azul oscuro */
+  }
+  

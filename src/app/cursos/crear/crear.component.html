@@ -1,0 +1,12 @@
+<!-- src/app/cursos/crear-curso/crear-curso.component.html -->
+<div class="crear-curso-container">
+    <h2>Crear Curso</h2>
+    <form (ngSubmit)="crearCurso()" class="curso-form">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="curso.nombre" name="nombre" required>
+      </div>
+      <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+  </div>
+  

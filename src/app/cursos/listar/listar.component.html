@@ -1,0 +1,73 @@
+<!-- src/app/cursos/listar-cursos/listar-cursos.component.html -->
+<div class="cursos-container">
+    <h2>Listar Cursos</h2>
+    <button class="btn btn-success" routerLink="/cursos/crear">Agregar Curso</button>
+  
+    <!-- Tabla de Cursos -->
+    <table class="cursos-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.nombre }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="eliminarCurso(curso.id)">Eliminar</button>
+            <button class="btn btn-info" [routerLink]="['/cursos/editar', curso.id]">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Botón para mostrar el formulario de asignación -->
+    <button class="btn btn-primary" (click)="mostrarFormularioAsignacion = !mostrarFormularioAsignacion">
+      {{ mostrarFormularioAsignacion ? 'Cancelar' : 'Asignar Usuario' }}
+    </button>
+  
+    <!-- Formulario de Asignación -->
+    <div *ngIf="mostrarFormularioAsignacion">
+      <h3>Asignar Usuario a Curso</h3>
+      <form (ngSubmit)="asignarUsuario()">
+        <div>
+          <label for="curso">Curso:</label>
+          <select id="curso" [(ngModel)]="cursoSeleccionado" name="curso">
+            <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombre }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="usuario">Usuario:</label>
+          <select id="usuario" [(ngModel)]="usuarioSeleccionado" name="usuario">
+            <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{ usuario.nombre }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Asignar</button>
+      </form>
+    </div>
+  
+    <!-- Tabla de Asignaciones -->
+    <h3>Asignaciones de Usuarios a Cursos</h3>
+    <table class="asignaciones-table">
+      <thead>
+        <tr>
+          <th>Curso</th>
+          <th>Usuarios Asignados</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.nombre }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let cu of curso.cursoUsuarios">
+                {{ getUsuarioNombre(cu.usuarioId) }}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
